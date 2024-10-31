@@ -1,6 +1,6 @@
 {
   "name": "create-dw",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "quick get dw-pro template",
   "type": "module",
   "bin": {
