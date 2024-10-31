@@ -13,8 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "zx ./scripts/build.mjs",
-    "prepublish": "npm test",
-    "postpublish": "git add . && git commit -m 'Update after publish'"
+    "postpublish": "zx ./scripts/postpublish.mjs"
   },
   "author": "zoushen",
   "dependencies": {
