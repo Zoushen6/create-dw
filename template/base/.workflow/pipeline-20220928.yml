@@ -1,0 +1,49 @@
+version: '1.0'
+name: pipeline-20220928
+displayName: dw-pro-ui-开发版
+triggers:
+  trigger: auto
+  push:
+    branches:
+      precise:
+        - dev
+    commitMessages:
+      include:
+        - .*\[auto].*
+stages:
+  - name: stage-ce1352a2
+    displayName: dw-pro-ui
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: shell@agent
+        name: execute_shell
+        displayName: 自动部署
+        hostGroupID:
+          ID: dev
+          hostID:
+            - aa0e9599-a57d-4ccb-ae34-713042ac9b2e
+        script:
+          - '# 请在此输入您想执行的脚本'
+          - set -e
+          - cd /codes/dw-pro-ui || exit
+          - git checkout .
+          - git checkout dev
+          - git pull
+          - sh deploy-dev.sh
+        notify:
+          - certificate: ebdf0b50-a91f-013a-9c42-2e64bcce1955
+            events:
+              - success
+              - fail
+            content:
+              - pipeline
+              - branch
+              - operator
+              - detail
+            type: weixin
+        strategy:
+          retry: '0'
+strategy:
+  blocking: true
